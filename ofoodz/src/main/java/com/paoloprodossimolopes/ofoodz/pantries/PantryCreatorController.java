@@ -11,11 +11,15 @@ public class PantryCreatorController {
         this.sessionValidator = sessionValidator;
     }
 
-    public void create(PantryRequest request) {
+    public void create(PantryRequest request) throws Exception {
         final boolean userExists = sessionValidator.validateUserIdentifier(request.getUserIdentifier());
         final boolean tokenIsValid = sessionValidator.validateSessionToken(request.getValidationToken());
 
-        if (userExists && tokenIsValid) {
+        if (userExists == false) {
+            throw new UnauthorizedException();
+        }
+
+        if (tokenIsValid) {
             final Pantry pantry = new Pantry(Optional.empty(), request.getTitle());
             repository.save(pantry);
         }
