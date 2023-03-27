@@ -12,9 +12,12 @@ public class PantryCreatorController {
     }
 
     public void create(PantryRequest request) {
-        sessionValidator.validateSessionToken(request.getValidationToken());
-        sessionValidator.validateUserIdentifier(request.getUserIdentifier());
-        final Pantry pantry = new Pantry(Optional.empty(), request.getTitle());
-        repository.save(pantry);
+        final boolean userExists = sessionValidator.validateUserIdentifier(request.getUserIdentifier());
+        final boolean tokenIsValid = sessionValidator.validateSessionToken(request.getValidationToken());
+
+        if (userExists && tokenIsValid) {
+            final Pantry pantry = new Pantry(Optional.empty(), request.getTitle());
+            repository.save(pantry);
+        }
     }
 }
