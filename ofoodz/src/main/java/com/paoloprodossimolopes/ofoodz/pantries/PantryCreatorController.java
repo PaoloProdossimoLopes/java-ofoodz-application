@@ -11,7 +11,7 @@ public class PantryCreatorController {
         this.sessionValidator = sessionValidator;
     }
 
-    public void create(PantryRequest request) throws Exception {
+    public CreatePantryResponse create(PantryRequest request) throws Exception {
         final boolean userExists = sessionValidator.validateUserIdentifier(request.getUserIdentifier());
         final boolean tokenIsValid = sessionValidator.validateSessionToken(request.getValidationToken());
 
@@ -19,7 +19,14 @@ public class PantryCreatorController {
             throw new UnauthorizedException();
         }
 
-        final Pantry pantry = new Pantry(Optional.empty(), request.getTitle());
-        repository.save(pantry);
+        final Pantry pantryCreated = repository.save(
+                new Pantry(Optional.empty(), request.getTitle())
+        );
+
+        return new CreatePantryResponse(
+                pantryCreated.getId().get(),
+                pantryCreated.getTitle(),
+                request.getValidationToken()
+        );
     }
 }
