@@ -1,10 +1,8 @@
 package com.paoloprodossimolopes.ofoodz.pantries.controllers;
 
-import com.paoloprodossimolopes.ofoodz.pantries.PantryCreatorRepository;
-import com.paoloprodossimolopes.ofoodz.pantries.Pantry;
-import com.paoloprodossimolopes.ofoodz.pantries.PantryCreatorController;
-import com.paoloprodossimolopes.ofoodz.pantries.PantryRequest;
+import com.paoloprodossimolopes.ofoodz.pantries.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,6 +10,7 @@ import java.util.List;
 
 public class PantryCreatorControllerTests {
     @Test
+    @DisplayName("Ao inicialziar a controller nao deve realizar uma consulta para o repositorio")
     void test_onInitialize_noCallsRepository() {
         final Enviroment env = makeEnviroment();
 
@@ -19,9 +18,24 @@ public class PantryCreatorControllerTests {
     }
 
     @Test
+    @DisplayName("Ao realizar o request para o criar uma despensa chama SessionValidator para validar a sessão")
+    void test_onCreate_callsSessionValidatorWithCorrectRequestParams() {
+        final Enviroment env = makeEnviroment();
+        final PantryRequest request = makePantryRequest();
+
+        env.sut.create(request);
+
+        Assertions.assertEquals(env.sessionValidator.getTokenReceivedAt(0), request.getValidationToken());
+        Assertions.assertEquals(env.sessionValidator.getUserIdentifierReceivedAt(0), request.getUserIdentifier());
+    }
+
+    @Test
+    @DisplayName("Ao realizar o request para o endpoint com sessao valida deve chamar o repository para criar uma despensa")
     void test_onCreate_withValidPantryRequest_callsRepositoryWithRequestNameAndEmptyId() {
         final Enviroment env = makeEnviroment();
         final PantryRequest request = makePantryRequest();
+        env.sessionValidator.setTokenValid();
+        env.sessionValidator.setUserIdentifierValid();
 
         env.sut.create(request);
 
@@ -40,17 +54,21 @@ public class PantryCreatorControllerTests {
 
     private Enviroment makeEnviroment() {
         final CreatorRepositorySpy repository = new CreatorRepositorySpy();
-        final PantryCreatorController sut = new PantryCreatorController(repository);
-        return new Enviroment(sut, repository);
+        final SessionValidatorStub sessionValidator = new SessionValidatorStub();
+        final PantryCreatorController sut = new PantryCreatorController(repository, sessionValidator);
+
+        return new Enviroment(sut, repository, sessionValidator);
     }
 
     private class Enviroment {
         final PantryCreatorController sut;
         final CreatorRepositorySpy repository;
+        final SessionValidatorStub sessionValidator;
 
-        public Enviroment(PantryCreatorController sut, CreatorRepositorySpy repository) {
+        public Enviroment(PantryCreatorController sut, CreatorRepositorySpy repository, SessionValidatorStub sessionValidator) {
             this.sut = sut;
             this.repository = repository;
+            this.sessionValidator = sessionValidator;
         }
     }
 
@@ -68,6 +86,51 @@ public class PantryCreatorControllerTests {
 
         Pantry getCreateReceivedAt(int index) {
             return saveRequestsReceived.get(index);
+        }
+    }
+
+    private class SessionValidatorStub implements SessionValidator {
+
+        private boolean userIdentifierIsValid = false;
+        private boolean userSessionTokenIsValid = false;
+
+        private List<String> userIdentifiersReceived = new ArrayList<>();
+        private List<String> userTokensReceived = new ArrayList<>();
+
+        @Override
+        public boolean validateUserIdentifier(String id) {
+            userIdentifiersReceived.add(id);
+            return userIdentifierIsValid;
+        }
+
+        @Override
+        public boolean validateSessionToken(String token) {
+            userTokensReceived.add(token);
+            return userSessionTokenIsValid;
+        }
+
+        String getTokenReceivedAt(int index) {
+            return userTokensReceived.get(index);
+        }
+
+        String getUserIdentifierReceivedAt(int index) {
+            return userIdentifiersReceived.get(index);
+        }
+
+        void setTokenValid() {
+            userSessionTokenIsValid = true;
+        }
+
+        void setTokenInvalid() {
+            userSessionTokenIsValid = false;
+        }
+
+        void setUserIdentifierValid() {
+            userIdentifierIsValid = true;
+        }
+
+        void setUserIdentifierInvalid() {
+            userIdentifierIsValid = false;
         }
     }
 }
