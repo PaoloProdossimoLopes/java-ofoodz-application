@@ -44,6 +44,32 @@ public class PantryCreatorControllerTests {
         Assertions.assertEquals(env.repository.getCreateReceivedAt(0).getTitle(), request.getTitle());
     }
 
+    @Test
+    @DisplayName("Teste para assegurar que a despesa nao sera chamada caso o usuario nao exista")
+    void test_onCreate_withInvalidUserIDCredential_noCallsRepositoryToCreatePantry() {
+        final Enviroment env = makeEnviroment();
+        final PantryRequest request = makePantryRequest();
+        env.sessionValidator.setTokenValid();
+        env.sessionValidator.setUserIdentifierInvalid();
+
+        env.sut.create(request);
+
+        Assertions.assertEquals(env.repository.getCreateCount(), 0);
+    }
+
+    @Test
+    @DisplayName("Teste para assegurar que a despesa nao sera chamada caso o token de sessao seja invalido")
+    void test_onCreate_withInvalidSessionTokenCredential_noCallsRepositoryToCreatePantry() {
+        final Enviroment env = makeEnviroment();
+        final PantryRequest request = makePantryRequest();
+        env.sessionValidator.setTokenInvalid();
+        env.sessionValidator.setUserIdentifierValid();
+
+        env.sut.create(request);
+
+        Assertions.assertEquals(env.repository.getCreateCount(), 0);
+    }
+
     private PantryRequest makePantryRequest() {
         return new PantryRequest(
                 "any name for pantry",
