@@ -1,9 +1,16 @@
 package com.paoloprodossimolopes.ofoodz.pantries;
 
-public class PantryCreatorController {
-    private final CreatorRepository repository;
+import java.util.Optional;
 
-    public PantryCreatorController(CreatorRepository repository) {
+public class PantryCreatorController {
+    private final PantryCreatorRepository repository;
+
+    public PantryCreatorController(PantryCreatorRepository repository) {
         this.repository = repository;
+    }
+
+    public void create(PantryRequest request) {
+        final Pantry pantry = new Pantry(Optional.empty(), request.getTitle());
+        repository.save(pantry);
     }
 }
