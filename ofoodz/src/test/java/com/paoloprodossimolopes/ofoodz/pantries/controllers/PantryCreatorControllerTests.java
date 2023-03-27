@@ -1,12 +1,14 @@
 package com.paoloprodossimolopes.ofoodz.pantries.controllers;
 
 import com.paoloprodossimolopes.ofoodz.pantries.*;
+import net.bytebuddy.pool.TypePool;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PantryCreatorControllerTests {
     @Test
@@ -28,6 +30,23 @@ public class PantryCreatorControllerTests {
 
         Assertions.assertEquals(env.sessionValidator.getTokenReceivedAt(0), request.getValidationToken());
         Assertions.assertEquals(env.sessionValidator.getUserIdentifierReceivedAt(0), request.getUserIdentifier());
+    }
+
+    @Test
+    @DisplayName("Ao criar uma despensa com sucesso deve retornar uma responsta com uma despensa com ID")
+    void test_onCreate_createsPantrySucessfully_respondsWithPantry() throws Exception {
+        final Long pantryID = 1L;
+        final Enviroment env = makeEnviroment();
+        env.sessionValidator.setTokenValid();
+        env.sessionValidator.setUserIdentifierValid();
+        final PantryRequest request = makePantryRequest();
+        env.repository.setSaveReturned(new Pantry(Optional.of(pantryID), request.getTitle()));
+
+        CreatePantryResponse response = env.sut.create(request);
+
+        Assertions.assertEquals(response.getTitle(), request.getTitle());
+        Assertions.assertEquals(response.getId(), pantryID);
+        Assertions.assertEquals(response.getSessionToken(), request.getValidationToken());
     }
 
     @Test
@@ -130,10 +149,12 @@ public class PantryCreatorControllerTests {
 
     private class CreatorRepositorySpy implements PantryCreatorRepository {
         private List<Pantry> saveRequestsReceived = new ArrayList<>();
+        private Pantry saveReturned = new Pantry(Optional.of(100L), "any default title");
 
         @Override
-        public void save(Pantry pantry) {
+        public Pantry save(Pantry pantry) {
             saveRequestsReceived.add(pantry);
+            return saveReturned;
         }
 
         int getCreateCount() {
@@ -142,6 +163,14 @@ public class PantryCreatorControllerTests {
 
         Pantry getCreateReceivedAt(int index) {
             return saveRequestsReceived.get(index);
+        }
+
+        public void setSaveReturned(Pantry pantry) {
+            this.saveReturned = pantry;
+        }
+
+        public Pantry getSaveReturned() {
+            return saveReturned;
         }
     }
 
