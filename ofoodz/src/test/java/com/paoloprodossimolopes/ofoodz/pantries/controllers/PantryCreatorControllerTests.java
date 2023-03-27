@@ -31,6 +31,20 @@ public class PantryCreatorControllerTests {
     }
 
     @Test
+    @DisplayName("Ao criar valida se o token de sessao eh valido e devolve Unauthorized com status code 401")
+    void test_onCreate_deleiversUnauthorized() {
+        final Enviroment env = makeEnviroment();
+        env.sessionValidator.setUserIdentifierValid();
+        env.sessionValidator.setTokenInvalid();
+        final PantryRequest request = makePantryRequest();
+
+        UnauthorizedException exception = Assertions.assertThrows(UnauthorizedException.class, () -> env.sut.create(request));
+
+        Assertions.assertEquals(exception.getMessage(), "User is unauthorized to perform this operation");
+        Assertions.assertEquals(exception.getStatusCode(), 401);
+    }
+
+    @Test
     @DisplayName("Ao realizar o request para o endpoint com sessao valida deve chamar o repository para criar uma despensa")
     void test_onCreate_withValidPantryRequest_callsRepositoryWithRequestNameAndEmptyId() throws Exception {
         final Enviroment env = makeEnviroment();
@@ -74,13 +88,14 @@ public class PantryCreatorControllerTests {
 
     @Test
     @DisplayName("Teste para assegurar que a despesa nao sera chamada caso o token de sessao seja invalido")
-    void test_onCreate_withInvalidSessionTokenCredential_noCallsRepositoryToCreatePantry() throws Exception{
+    void test_onCreate_withInvalidSessionTokenCredential_noCallsRepositoryToCreatePantry() {
         final Enviroment env = makeEnviroment();
         final PantryRequest request = makePantryRequest();
         env.sessionValidator.setTokenInvalid();
         env.sessionValidator.setUserIdentifierValid();
 
-        env.sut.create(request);
+        try { env.sut.create(request); }
+        catch (Exception ignored) { }
 
         Assertions.assertEquals(env.repository.getCreateCount(), 0);
     }
