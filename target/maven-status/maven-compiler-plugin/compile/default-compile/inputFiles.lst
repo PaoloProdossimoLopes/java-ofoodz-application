@@ -1,8 +1,8 @@
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/PantryCreatorRepository.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/PantryCreatorController.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/CreatePantryResponse.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/Pantry.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/UnauthorizedException.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/PantryRequest.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/OfoodzApplication.java
-/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/ofoodz/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/SessionValidator.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/PantryCreatorRepository.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/Pantry.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/CreatePantryResponse.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/UnauthorizedException.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/PantryCreatorController.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/PantryRequest.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/OfoodzApplication.java
+/Users/prols/Arquivos/dev/github-repos/applications/java-ofoodz-application/src/main/java/com/paoloprodossimolopes/ofoodz/pantries/SessionValidator.java
