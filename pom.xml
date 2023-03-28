@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.paoloprodossimolopes</groupId>
 	<artifactId>ofoodz</artifactId>
@@ -49,14 +49,12 @@
 				<executions>
 					<execution>
 						<id>jacoco-prepare-agent</id>
-<!--						<phase>test</phase>-->
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
 						<id>jacoco-report</id>
-<!--						<phase>test</phase>-->
 						<goals>
 							<goal>report</goal>
 						</goals>
