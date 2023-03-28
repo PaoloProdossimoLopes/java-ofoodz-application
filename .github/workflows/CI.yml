@@ -1,4 +1,6 @@
 name: CI/CD Pipeline
+dist: trusty
+
 on:
   pull_request:
     branches:
@@ -36,3 +38,4 @@ jobs:
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           root_dir: ofoodz/
+          file: ofoodz/target/site/jacoco/jacoco.xml
