@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ofoodz,com.paoloprodossimolopes.ofoodz.pantries,Pantry,0,15,0,0,0,6,0,3,0,3
+ofoodz,com.paoloprodossimolopes.ofoodz.pantries,PantryCreatorController,0,51,0,4,0,14,0,4,0,2
+ofoodz,com.paoloprodossimolopes.ofoodz.pantries,CreatePantryResponse,0,21,0,0,0,8,0,4,0,4
+ofoodz,com.paoloprodossimolopes.ofoodz.pantries,UnauthorizedException,0,13,0,0,0,5,0,3,0,3
+ofoodz,com.paoloprodossimolopes.ofoodz.pantries,PantryRequest,0,21,0,0,0,8,0,4,0,4
+ofoodz,com.paoloprodossimolopes.ofoodz,OfoodzApplication,5,3,0,0,2,1,1,1,1,1

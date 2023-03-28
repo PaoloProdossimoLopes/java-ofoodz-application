@@ -1,4 +1,5 @@
 name: CI/CD Pipeline
+
 on:
   pull_request:
     branches:
@@ -27,9 +28,14 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+        
+      - name: Installing dependencies
+        run: mvn install -B -V
 
-      - name: Run Tests
-        run: cd ofoodz && mvn test
+      - name: Run Tests and collect the Coverage
+        run: mvn -B test
       
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
