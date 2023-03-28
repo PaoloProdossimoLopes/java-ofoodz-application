@@ -1,0 +1,7 @@
+com/paoloprodossimolopes/ofoodz/pantries/Pantry.class
+com/paoloprodossimolopes/ofoodz/pantries/PantryCreatorRepository.class
+com/paoloprodossimolopes/ofoodz/pantries/UnauthorizedException.class
+com/paoloprodossimolopes/ofoodz/pantries/PantryRequest.class
+com/paoloprodossimolopes/ofoodz/pantries/PantryCreatorController.class
+com/paoloprodossimolopes/ofoodz/pantries/SessionValidator.class
+com/paoloprodossimolopes/ofoodz/pantries/CreatePantryResponse.class
