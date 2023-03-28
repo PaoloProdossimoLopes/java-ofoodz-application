@@ -9,10 +9,6 @@ on:
       - main
       - develop
 
-before_install:
-  - chmod +x mvn
-  - chmod +x mvnw
-
 jobs:
   tests:
     name: Unit tests
