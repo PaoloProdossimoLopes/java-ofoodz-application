@@ -30,3 +30,6 @@ jobs:
 
       - name: Run Tests
         run: cd ofoodz && mvn test
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
