@@ -29,7 +29,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
         
-      - name: Run Tests
+      - name: Installing dependencies
+        run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+      - name: Run Tests and collect the Coverage
         run: cd ofoodz && mvn -B test
       
       - name: Upload coverage reports to Codecov
@@ -37,4 +40,4 @@ jobs:
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           root_dir: ofoodz/
-          file: ofoodz/target/site/jacoco/jacoco.xml
+          file: target/site/jacoco/jacoco.xml
