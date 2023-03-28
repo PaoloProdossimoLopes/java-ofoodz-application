@@ -1,5 +1,4 @@
 name: CI/CD Pipeline
-dist: trusty
 
 on:
   pull_request:
