@@ -34,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
         
       - name: Installing dependencies
-        run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        run: cd ofoodz && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
       - name: Run Tests and collect the Coverage
         run: cd ofoodz && mvn -B test
