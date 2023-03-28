@@ -49,14 +49,14 @@
 				<executions>
 					<execution>
 						<id>jacoco-prepare-agent</id>
-						<phase>test</phase>
+<!--						<phase>test</phase>-->
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
 						<id>jacoco-report</id>
-						<phase>test</phase>
+<!--						<phase>test</phase>-->
 						<goals>
 							<goal>report</goal>
 						</goals>

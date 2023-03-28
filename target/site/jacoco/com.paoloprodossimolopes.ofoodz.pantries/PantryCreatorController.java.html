@@ -6,27 +6,27 @@ public class PantryCreatorController {
     private final PantryCreatorRepository repository;
     private final SessionValidator sessionValidator;
 
-<span class="nc" id="L9">    public PantryCreatorController(PantryCreatorRepository repository, SessionValidator sessionValidator) {</span>
-<span class="nc" id="L10">        this.repository = repository;</span>
-<span class="nc" id="L11">        this.sessionValidator = sessionValidator;</span>
-<span class="nc" id="L12">    }</span>
+<span class="fc" id="L9">    public PantryCreatorController(PantryCreatorRepository repository, SessionValidator sessionValidator) {</span>
+<span class="fc" id="L10">        this.repository = repository;</span>
+<span class="fc" id="L11">        this.sessionValidator = sessionValidator;</span>
+<span class="fc" id="L12">    }</span>
 
     public CreatePantryResponse create(PantryRequest request) throws Exception {
-<span class="nc" id="L15">        final boolean userExists = sessionValidator.validateUserIdentifier(request.getUserIdentifier());</span>
-<span class="nc" id="L16">        final boolean tokenIsValid = sessionValidator.validateSessionToken(request.getValidationToken());</span>
+<span class="fc" id="L15">        final boolean userExists = sessionValidator.validateUserIdentifier(request.getUserIdentifier());</span>
+<span class="fc" id="L16">        final boolean tokenIsValid = sessionValidator.validateSessionToken(request.getValidationToken());</span>
 
-<span class="nc bnc" id="L18" title="All 4 branches missed.">        if (userExists == false || tokenIsValid == false) {</span>
-<span class="nc" id="L19">            throw new UnauthorizedException();</span>
+<span class="fc bfc" id="L18" title="All 4 branches covered.">        if (userExists == false || tokenIsValid == false) {</span>
+<span class="fc" id="L19">            throw new UnauthorizedException();</span>
         }
 
-<span class="nc" id="L22">        final Pantry pantryCreated = repository.save(</span>
-<span class="nc" id="L23">                new Pantry(Optional.empty(), request.getTitle())</span>
+<span class="fc" id="L22">        final Pantry pantryCreated = repository.save(</span>
+<span class="fc" id="L23">                new Pantry(Optional.empty(), request.getTitle())</span>
         );
 
-<span class="nc" id="L26">        return new CreatePantryResponse(</span>
-<span class="nc" id="L27">                pantryCreated.getId().get(),</span>
-<span class="nc" id="L28">                pantryCreated.getTitle(),</span>
-<span class="nc" id="L29">                request.getValidationToken()</span>
+<span class="fc" id="L26">        return new CreatePantryResponse(</span>
+<span class="fc" id="L27">                pantryCreated.getId().get(),</span>
+<span class="fc" id="L28">                pantryCreated.getTitle(),</span>
+<span class="fc" id="L29">                request.getValidationToken()</span>
         );
     }
 }
